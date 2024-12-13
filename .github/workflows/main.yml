@@ -25,8 +25,8 @@ jobs:
     if: github.ref == 'refs/heads/dev'
     # Importing a reusable workflow
     permissions:
-      contents: read
-      id-token: write
+      id-token: write # This is required for requesting the JWT
+      contents: read  # This is required for actions/checkout
     uses: ./.github/workflows/jsreports.yml
     # Passing secrets account wise 
     secrets:
