@@ -10,6 +10,7 @@ from email.mime.application import MIMEApplication
 from email.mime.text import MIMEText
 import logging
 
+
 def fetch_dlt_sales_data():
     try:
         token = get_api_token()
