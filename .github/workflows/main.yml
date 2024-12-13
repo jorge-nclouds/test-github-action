@@ -31,4 +31,4 @@ jobs:
     # Passing secrets account wise 
     secrets:
       aws-region: ${{ secrets.AWS_REGION }}
-      aws-github-role-arn: arn:aws:iam::412393146416:role/github_test
+      aws-github-role-arn: ${{ secrets.CG_AWS_DEV_ROLE }}
