@@ -31,6 +31,6 @@ jobs:
       - name: Extract branch name
         id: branch-name
         run: echo "::set-output name=branch-name::$(echo ${GITHUB_REF#refs/heads/})"
-      - name: Sync SAM app
-        working-directory: ./JSREPORTS/lambdas
-        run: echo y | sam sync  --stack-name JSREPORTS-${{ steps.branch-name.outputs.branch-name }} --s3-bucket afg-cg-cf-virginia --parameter-overrides env=${{ steps.branch-name.outputs.branch-name }}  --no-dependency-layer
+      # - name: Sync SAM app
+      #   working-directory: ./JSREPORTS/lambdas
+      #   run: echo y | sam sync  --stack-name JSREPORTS-${{ steps.branch-name.outputs.branch-name }} --s3-bucket afg-cg-cf-virginia --parameter-overrides env=${{ steps.branch-name.outputs.branch-name }}  --no-dependency-layer
