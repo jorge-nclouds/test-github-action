@@ -1,0 +1,36 @@
+name: build-deploy
+# Changed 'on' to enable this workflow to be called from other workflows
+on:
+  workflow_call:
+    # Introduced 'inputs' to define parameters that can be passed when calling this workflow
+    secrets:
+      aws-region:
+        description: "AWS Region to deploy resources"
+        required: true
+      aws-github-role-arn:
+        description: "Github AWS IAM Role to assume"
+        required: true
+
+jobs:
+  reports-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - uses: aws-actions/setup-sam@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ secrets.aws-region }}
+          role-to-assume: ${{ secrets.aws-github-role-arn }}
+          role-duration-seconds: 900
+          role-session-name: github-dlt-sam
+      - name: Extract branch name
+        id: branch-name
+        run: echo "::set-output name=branch-name::$(echo ${GITHUB_REF#refs/heads/})"
+      - name: Sync SAM app
+        working-directory: ./JSREPORTS/lambdas
+        run: echo y | sam sync  --stack-name JSREPORTS-${{ steps.branch-name.outputs.branch-name }} --s3-bucket afg-cg-cf-virginia --parameter-overrides env=${{ steps.branch-name.outputs.branch-name }}  --no-dependency-layer

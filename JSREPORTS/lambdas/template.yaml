@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  DLTSalesReport
+
+Globals:
+  Function:
+    Timeout: 900
+    MemorySize: 10240
+
+Parameters:
+  env:
+    Type: String
+    Default: dev    
+
+Resources:
+
+  DLTSalesReport:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      FunctionName: !Sub "DLTSalesReport-${env}"
+      Handler: app.lambda_handler
+      Role: arn:aws:iam::030555381961:role/lambda-master-role
+      Runtime: python3.9
+      # Layers:
+      #   - arn:aws:lambda:us-east-1:571181801421:layer:pyodbc39git:1
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          ENV_VAR: !Ref env        
+      Events:
+        Schedule1:
+          Type: Schedule
+          Properties:
+          # schedule everyday at 6am CT
+            Schedule: cron(0 11 * * ? *)
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-032c784dc0d72e1e4
+        SubnetIds:
+          - subnet-0686225dfb8d07054
+          - subnet-02186b4a98562f871         
+
+Outputs:
+
+  DLTSalesReport:
+    Description: "DLTSalesReport Function ARN"
+    Value: !GetAtt DLTSalesReport.Arn
