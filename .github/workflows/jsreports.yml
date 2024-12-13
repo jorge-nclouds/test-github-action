@@ -20,11 +20,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.9"
+      # - uses: actions/setup-python@v4
+      #   with:
+      #     python-version: "3.9"
 
-      - uses: aws-actions/setup-sam@v2
+      # - uses: aws-actions/setup-sam@v2
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -35,6 +35,6 @@ jobs:
       - name: Extract branch name
         id: branch-name
         run: echo "::set-output name=branch-name::$(echo ${GITHUB_REF#refs/heads/})"
-      - name: Sync SAM app
-        working-directory: ./JSREPORTS/lambdas
-        run: echo y | sam sync  --stack-name JSREPORTS-${{ steps.branch-name.outputs.branch-name }} --s3-bucket afg-cg-cf-virginia --parameter-overrides env=${{ steps.branch-name.outputs.branch-name }}  --no-dependency-layer
+      # - name: Sync SAM app
+      #   working-directory: ./JSREPORTS/lambdas
+      #   run: echo y | sam sync  --stack-name JSREPORTS-${{ steps.branch-name.outputs.branch-name }} --s3-bucket afg-cg-cf-virginia --parameter-overrides env=${{ steps.branch-name.outputs.branch-name }}  --no-dependency-layer

@@ -11,7 +11,6 @@ from util import get_secrets, get_base_url, get_api_recipient_emails, get_api_to
 
 REGION_NAME = 'us-east-1'
 
-
 def get_request_data():
     try:
         request_secrets = get_secrets('api_request_totals')
