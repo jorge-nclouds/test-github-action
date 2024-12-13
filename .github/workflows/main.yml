@@ -14,7 +14,7 @@ jobs:
     # Importing a reusable workflow
     permissions:
       contents: read
-      pull-requests: write
+      id-token: write
     uses: ./.github/workflows/jsreports.yml
     # Passing secrets account wise 
     secrets:
@@ -26,7 +26,7 @@ jobs:
     # Importing a reusable workflow
     permissions:
       contents: read
-      pull-requests: write
+      id-token: write
     uses: ./.github/workflows/jsreports.yml
     # Passing secrets account wise 
     secrets:
