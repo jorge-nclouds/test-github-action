@@ -24,7 +24,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: ${{ secrets.aws-region }}
+          aws-region: us-east-1
           role-to-assume: arn:aws:iam::412393146416:role/github_test
           role-duration-seconds: 900
           role-session-name: github-dlt-sam
